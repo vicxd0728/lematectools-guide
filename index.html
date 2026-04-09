@@ -1,259 +1,495 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEMATEC Tools LAB | Professional B2B Solutions & Engineering Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
-        .nav-link:hover .dropdown-menu { display: block; }
-        .dropdown-menu { display: none; }
-        .feature-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
-        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
-        .modal-content { background-color: white; margin: 10% auto; padding: 2rem; border-radius: 1.5rem; max-width: 500px; position: relative; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 1rem; }
-    </style>
-    
-    <!-- GEO Structured Data: Enhanced for B2B -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Lematec Tools",
-      "url": "https://www.lematec-tools.com/",
-      "logo": "https://www.lematec-tools.com/logo.png",
-      "description": "Premium pneumatic tool solutions. Specialist in OEM/ODM manufacturing and supply chain stability for global brands.",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "sales",
-        "areaServed": "Worldwide",
-        "availableLanguage": ["English", "Chinese"]
-      }
-    }
-    </script>
-</head>
-<body class="bg-white text-slate-800 pt-16">
+import React, { useState, useEffect, useRef } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged, signInAnonymously, signInWithCustomToken } from 'firebase/auth';
+import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot, addDoc, updateDoc, query, serverTimestamp } from 'firebase/firestore';
+import { 
+  Activity, 
+  Camera, 
+  CheckCircle2, 
+  AlertTriangle, 
+  TrendingUp, 
+  Calendar, 
+  Package, 
+  BrainCircuit,
+  Droplets,
+  Zap,
+  LayoutDashboard,
+  UtensilsCrossed,
+  Pill,
+  BarChart3,
+  Plus,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  User
+} from 'lucide-react';
 
-    <!-- Sticky Navigation -->
-    <nav class="fixed top-0 left-0 w-full bg-slate-900/95 backdrop-blur shadow-lg z-50 text-white">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="#" class="font-bold text-xl tracking-tighter text-blue-400">LEMATEC LAB</a>
-            
-            <div class="hidden md:flex space-x-8 items-center h-full">
-                <div class="relative h-full flex items-center nav-link cursor-pointer group">
-                    <span class="text-sm font-medium group-hover:text-blue-400 transition-colors">Technical Guides</span>
-                    <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
-                    <div class="dropdown-menu absolute top-16 left-0 bg-white text-slate-800 shadow-2xl rounded-xl py-2 w-56 border border-gray-100">
-                        <a href="https://www.lematec-tools.com/sandblasting-media-sandblast-reference" target="_blank" class="block px-4 py-3 hover:bg-blue-50 text-sm font-medium border-b border-gray-50 flex items-center">
-                            <i data-lucide="sparkles" class="w-4 h-4 mr-2 text-blue-500"></i> Sandblasting Guide
-                        </a>
-                        <a href="https://www.lematec-tools.com/use-air-impact-wrench-guide" target="_blank" class="block px-4 py-3 hover:bg-blue-50 text-sm font-medium border-b border-gray-50 flex items-center">
-                            <i data-lucide="wrench" class="w-4 h-4 mr-2 text-blue-500"></i> Impact Wrench Guide
-                        </a>
-                        <a href="https://www.lematec-tools.com/data-322894" target="_blank" class="block px-4 py-3 hover:bg-blue-50 text-sm font-medium flex items-center">
-                            <i data-lucide="gauge" class="w-4 h-4 mr-2 text-blue-500"></i> CFM vs PSI Guide
-                        </a>
-                    </div>
-                </div>
-                <a href="#b2b-solutions" class="text-sm font-medium hover:text-blue-400 transition-colors">B2B Solutions</a>
-                <a href="#brand-story" class="text-sm font-medium hover:text-blue-400 transition-colors">Brand Story</a>
-                <a href="https://www.lematec-tools.com/contact-us" class="bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded-lg text-sm font-bold transition shadow-md">Get a Quote</a>
-            </div>
+// --- Firebase Configuration ---
+const firebaseConfig = JSON.parse(__firebase_config);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'vbar-health-monitor';
+const apiKey = ""; // Gemini API Key 
 
-            <div class="md:hidden">
-                <i data-lucide="menu" class="w-6 h-6"></i>
-            </div>
-        </div>
-    </nav>
+const TABS = {
+  DASHBOARD: 'dashboard',
+  MEALS: 'meals',
+  SUPPLEMENTS: 'supplements',
+  STATS: 'stats'
+};
 
-    <!-- Hero Section: Professional Authority -->
-    <header class="hero-gradient text-white py-24 px-6 text-center">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight text-blue-400 uppercase">LEMATEC Tools LAB</h1>
-            <p class="text-xl md:text-2xl text-gray-300 font-light max-w-2xl mx-auto mb-10">
-                Accelerating Brand Success with Professional Pneumatic Knowledge & Stable Supply Solutions.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#knowledge-base" class="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-gray-100 transition shadow-lg">Explore Technical Resources</a>
-                <a href="https://www.lematec-tools.com/data-370899" class="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-xl font-bold hover:bg-blue-400/10 transition">B2B Buyer's Guide</a>
-            </div>
-        </div>
-    </header>
+const MEAL_TYPES = ['早餐', '午餐', '晚餐', '下午茶', '消夜'];
 
-    <!-- Section 1: Value-First Knowledge Base -->
-    <section id="knowledge-base" class="max-w-6xl mx-auto px-6 py-20">
-        <div class="text-center mb-16">
-            <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">Technical Authority</h2>
-            <h3 class="text-3xl font-bold text-slate-900">Engineering Wisdom for Your Workshop</h3>
-            <div class="w-16 h-1 bg-blue-600 mx-auto mt-4"></div>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-            <a href="https://www.lematec-tools.com/sandblasting-media-sandblast-reference" class="feature-card p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-xl transition flex flex-col items-center text-center">
-                <i data-lucide="sparkles" class="w-10 h-10 text-blue-500 mb-6"></i>
-                <h4 class="font-bold text-lg mb-3">Sandblasting Reference</h4>
-                <p class="text-sm text-gray-500 leading-relaxed">Selecting the right media for surface prep. Essential for industrial coatings.</p>
-            </a>
-            <a href="https://www.lematec-tools.com/data-322894" class="feature-card p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-xl transition flex flex-col items-center text-center">
-                <i data-lucide="gauge" class="w-10 h-10 text-blue-500 mb-6"></i>
-                <h4 class="font-bold text-lg mb-3">CFM vs PSI Optimization</h4>
-                <p class="text-sm text-gray-500 leading-relaxed">Optimize your air system for longevity and tool performance.</p>
-            </a>
-            <div class="feature-card p-8 bg-blue-600 text-white rounded-2xl shadow-lg flex flex-col items-center text-center cursor-pointer" onclick="openModal('cfmModal')">
-                <i data-lucide="calculator" class="w-10 h-10 mb-6"></i>
-                <h4 class="font-bold text-lg mb-3 text-white">Engineering Calculator</h4>
-                <p class="text-sm text-blue-100 leading-relaxed">Instantly convert CFM to SCFM for standardized system planning.</p>
-            </div>
-        </div>
-    </section>
+const INITIAL_SUPPLEMENTS = [
+  { id: 'berberine', name: '小檗鹼', total: 60, current: 45, dosage: 1, type: '隨餐', icon: '💊' },
+  { id: 'zinc', name: '鋅', total: 30, current: 12, dosage: 1, type: '隨餐', icon: '🧬' },
+  { id: 'fish-oil', name: '魚油', total: 120, current: 80, dosage: 2, type: '隨餐', icon: '🐟' },
+  { id: 'magnesium', name: '鎂', total: 90, current: 20, dosage: 1, type: '睡前', icon: '🌙' },
+  { id: 'biotin', name: '生物素', total: 100, current: 85, dosage: 1, type: '隨餐', icon: '💇' },
+];
 
-    <!-- Section 2: Trust (Brand Story) -->
-    <section id="brand-story" class="bg-slate-50 py-24 px-6 overflow-hidden">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex flex-col md:flex-row gap-16 items-center">
-                <div class="md:w-1/2 relative">
-                    <img src="348247.webp" alt="Vic and Charles - Lematec" class="relative rounded-3xl shadow-2xl border-8 border-white z-10 w-full h-auto">
-                    <div class="absolute -bottom-6 -right-6 bg-slate-900 text-white p-6 rounded-2xl shadow-xl z-20">
-                        <div class="text-3xl font-bold text-blue-400 italic">"Better beats best."</div>
-                    </div>
-                </div>
-                
-                <div class="md:w-1/2">
-                    <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">The LEMATEC Spirit</h2>
-                    <h3 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900">Craftsmanship Meets Global Strategy</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        From a childhood in a Taiwanese factory to a global leader in pneumatic innovation, Lematec is the synergy of <strong>Vic's ingenuity</strong> and <strong>Charles' strategic navigation</strong>. We don't just build tools; we evolve solutions.
-                    </p>
-                    <div class="flex gap-10 mb-8 border-l-4 border-blue-200 pl-6 py-2">
-                        <div>
-                            <div class="text-2xl font-bold text-slate-900">50+</div>
-                            <div class="text-[10px] text-gray-400 uppercase font-bold">Countries</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold text-slate-900">13+</div>
-                            <div class="text-[10px] text-gray-400 uppercase font-bold">Years Experience</div>
-                        </div>
-                    </div>
-                    <a href="https://www.lematec-tools.com/brand-story-lematec" class="inline-flex items-center text-blue-600 font-bold hover:underline">
-                        Explore Our Full Journey <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+export default function App() {
+  const [user, setUser] = useState(null);
+  const [activeTab, setActiveTab] = useState(TABS.DASHBOARD);
+  const [loading, setLoading] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [isAddMealOpen, setIsAddMealOpen] = useState(false);
+  
+  const [profile, setProfile] = useState({
+    name: "Vic",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop", // 預設頭像
+    goal: "半年重塑: 減脂 167% / 增肌 25.5kg",
+    energyLevel: 85,
+    smm: 32.5,
+    bfm: 18.2,
+    bmr: 1750
+  });
 
-    <!-- Section 3: B2B Engineering & Supply Chain (THE CORE VALUE) -->
-    <section id="b2b-solutions" class="bg-slate-900 py-24 px-6 text-white">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="text-blue-400 font-bold uppercase tracking-widest mb-4">B2B Excellence</h2>
-                    <h3 class="text-4xl font-bold mb-8">Engineering a Solution-Driven Supply Chain</h3>
-                    <p class="text-slate-400 mb-10 leading-relaxed">
-                        We understand that brand success requires more than just a product. It requires a partner who understands product positioning, digital execution, and stable lead times.
-                    </p>
-                    <ul class="space-y-6">
-                        <li class="flex items-start">
-                            <div class="bg-blue-500/20 p-2 rounded-lg mr-4"><i data-lucide="cpu" class="w-5 h-5 text-blue-400"></i></div>
-                            <div>
-                                <h5 class="font-bold">Human Craftsmanship x AI Soft Power</h5>
-                                <p class="text-xs text-slate-500 mt-1">Turning decades of experience into scalable systems for faster market-ready content.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="bg-orange-500/20 p-2 rounded-lg mr-4"><i data-lucide="layers" class="w-5 h-5 text-orange-400"></i></div>
-                            <div>
-                                <h5 class="font-bold">Integrated Workflow (OEM/ODM/OBM)</h5>
-                                <p class="text-xs text-slate-500 mt-1">All processes handled in-house to ensure showroom-quality results.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="bg-green-500/20 p-2 rounded-lg mr-4"><i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i></div>
-                            <div>
-                                <h5 class="font-bold">Low MOQ & Scalability</h5>
-                                <p class="text-xs text-slate-500 mt-1">Support for market testing with minimal risk and high-quality sample orders.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="bg-slate-800 p-1 rounded-3xl shadow-3xl overflow-hidden">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/XHq0u_9dnaM" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <div class="p-8 text-center">
-                        <p class="italic text-slate-400 text-sm mb-6">"Innovation isn't just about the tool; it's about the evolution of the craft."</p>
-                        <a href="https://www.lematec-tools.com/contact-us" class="block bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 rounded-xl shadow-lg transition">Request Strategic Partnership</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  const [dailyLogs, setDailyLogs] = useState([]);
+  const [supps, setSupps] = useState(INITIAL_SUPPLEMENTS);
+  const [aiAnalysis, setAiAnalysis] = useState("");
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-    <!-- Section 4: Secondary - Retail & Online Shops (Moved Down) -->
-    <section id="official-shops" class="py-24 px-6 max-w-4xl mx-auto text-center">
-        <h3 class="text-2xl font-bold text-slate-900 mb-4 italic">Experience the Difference</h3>
-        <p class="text-gray-500 mb-12">For individual professionals and DIY enthusiasts looking for immediate tool excellence.</p>
-        
-        <div class="grid sm:grid-cols-2 gap-6">
-            <a href="https://proairtools.com/" target="_blank" class="flex items-center justify-center space-x-3 bg-white border border-gray-200 p-6 rounded-2xl hover:border-blue-500 hover:shadow-lg transition">
-                <i data-lucide="globe" class="text-blue-600 w-6 h-6"></i>
-                <span class="font-bold">Official ProAirTools Shop</span>
-            </a>
-            <a href="https://www.amazon.com/stores/LELEMATEC/page/1498BA10-77D1-4AE3-9A09-A0527CB621A8" target="_blank" class="flex items-center justify-center space-x-3 bg-white border border-gray-200 p-6 rounded-2xl hover:border-orange-500 hover:shadow-lg transition">
-                <i data-lucide="shopping-cart" class="text-orange-600 w-6 h-6"></i>
-                <span class="font-bold">LEMATEC Amazon Store</span>
-            </a>
-        </div>
-    </section>
+  // New Meal Form State
+  const [newMeal, setNewMeal] = useState({
+    name: '',
+    type: '午餐',
+    kcal: 0,
+    protein: 0,
+    sodium: 0
+  });
 
-    <!-- Modals (Calculators) -->
-    <div id="cfmModal" class="modal">
-        <div class="modal-content">
-            <button onclick="closeModal('cfmModal')" class="absolute top-4 right-4"><i data-lucide="x"></i></button>
-            <h3 class="text-xl font-bold mb-4">CFM to SCFM Tool</h3>
-            <div class="space-y-4">
-                <input type="number" id="acfm" class="w-full p-3 border rounded-xl" placeholder="ACFM (Actual)">
-                <input type="number" id="psi" class="w-full p-3 border rounded-xl" placeholder="PSIG (Pressure)">
-                <button onclick="calcSCFM()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold">Calculate</button>
-                <div id="scfmResult" class="text-center font-bold text-2xl text-blue-900 mt-4">--</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-slate-950 text-white py-12 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-center md:text-left">
-                <div class="font-bold text-xl mb-2 tracking-tighter">LEMATEC Tools</div>
-                <p class="text-gray-600 text-xs">A Taiwan-based solution partner for global pneumatic excellence since 1987.</p>
-            </div>
-            <div class="flex space-x-10 text-xs uppercase tracking-widest font-bold">
-                <a href="https://www.linkedin.com/in/kun-wei-chen-ba03b587" class="hover:text-blue-400">LinkedIn</a>
-                <a href="https://www.youtube.com/@lematecprotools" class="hover:text-blue-400">YouTube</a>
-                <a href="https://www.lematec-tools.com/" class="hover:text-blue-400">Main Site</a>
-            </div>
-        </div>
-        <div class="text-center mt-12 text-[10px] text-gray-800 uppercase tracking-widest">
-            &copy; 2024 LEMATEC TOOLS. NO BEST, ONLY BETTER.
-        </div>
-    </footer>
-
-    <script>
-        lucide.createIcons();
-        function openModal(id) { document.getElementById(id).style.display = 'block'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function calcSCFM() {
-            const acfm = parseFloat(document.getElementById('acfm').value || 0);
-            const psi = parseFloat(document.getElementById('psi').value || 0);
-            document.getElementById('scfmResult').innerText = (acfm * (psi + 14.7) / 14.7).toFixed(2) + ' SCFM';
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
         }
-        window.onclick = (e) => { if(e.target.className === 'modal') e.target.style.display = 'none'; }
-    </script>
-</body>
-</html>
+      } catch (err) { console.error("Auth failed", err); }
+    };
+    initAuth();
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
+      setUser(u);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (!user) return;
+    const q = collection(db, 'artifacts', appId, 'users', user.uid, 'dailyLogs');
+    const unsubLogs = onSnapshot(q, (snapshot) => {
+      const logs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setDailyLogs(logs);
+    }, (err) => console.error("Firestore Error:", err));
+
+    const qSupps = collection(db, 'artifacts', appId, 'users', user.uid, 'supplements');
+    const unsubSupps = onSnapshot(qSupps, (snapshot) => {
+      if (!snapshot.empty) {
+        const s = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setSupps(s);
+      }
+    });
+
+    return () => {
+      unsubLogs();
+      unsubSupps();
+    };
+  }, [user]);
+
+  const handleAddMeal = async () => {
+    if (!user || !newMeal.name) return;
+    const logRef = collection(db, 'artifacts', appId, 'users', user.uid, 'dailyLogs');
+    await addDoc(logRef, {
+      ...newMeal,
+      kcal: Number(newMeal.kcal),
+      protein: Number(newMeal.protein),
+      sodium: Number(newMeal.sodium),
+      timestamp: serverTimestamp(),
+      date: selectedDate
+    });
+    setNewMeal({ name: '', type: '午餐', kcal: 0, protein: 0, sodium: 0 });
+    setIsAddMealOpen(false);
+  };
+
+  const updateSuppInventory = async (id, taken) => {
+    if (!user) return;
+    const item = supps.find(s => s.id === id);
+    if (!item) return;
+    const newCount = Math.max(0, item.current - (taken ? item.dosage : 0));
+    const suppRef = doc(db, 'artifacts', appId, 'users', user.uid, 'supplements', id);
+    await setDoc(suppRef, { ...item, current: newCount }, { merge: true });
+  };
+
+  const analyzeStatus = async () => {
+    setIsAnalyzing(true);
+    const filteredLogs = dailyLogs.filter(l => l.date === selectedDate);
+    const prompt = `你是 AI 營養科學家。針對 38 歲男性，目標是「半年重塑」增肌減脂。日期：${selectedDate}，今日數據：${JSON.stringify(filteredLogs)}。請給予明天的開餐建議與今晚補救 SOP。用繁體中文回答。`;
+
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+      });
+      const result = await response.json();
+      setAiAnalysis(result.candidates?.[0]?.content?.parts?.[0]?.text || "無法獲取分析結果。");
+    } catch (err) {
+      setAiAnalysis("分析失敗，請檢查網路連線或 API 設定。");
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const getLogsForDate = (date) => dailyLogs.filter(l => l.date === date);
+
+  if (loading) return (
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+      <div className="animate-spin text-emerald-400"><Zap size={48} /></div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans pb-20 md:pb-0 md:pl-64">
+      {/* Sidebar - Desktop */}
+      <nav className="fixed left-0 top-0 h-full w-64 bg-slate-900 border-r border-slate-800 hidden md:flex flex-col p-6">
+        <div className="flex items-center gap-3 mb-10">
+          <div className="p-2 bg-emerald-500 rounded-lg text-slate-900">
+            <Activity size={24} />
+          </div>
+          <h1 className="text-2xl font-bold tracking-tighter">維博健康</h1>
+        </div>
+        
+        <div className="space-y-2 flex-1">
+          <NavItem active={activeTab === TABS.DASHBOARD} onClick={() => setActiveTab(TABS.DASHBOARD)} icon={<LayoutDashboard />} label="戰略中心" />
+          <NavItem active={activeTab === TABS.MEALS} onClick={() => setActiveTab(TABS.MEALS)} icon={<UtensilsCrossed />} label="每日餐點" />
+          <NavItem active={activeTab === TABS.SUPPLEMENTS} onClick={() => setActiveTab(TABS.SUPPLEMENTS)} icon={<Pill />} label="保健食品" />
+          <NavItem active={activeTab === TABS.STATS} onClick={() => setActiveTab(TABS.STATS)} icon={<BarChart3 />} label="數據報告" />
+        </div>
+
+        {/* User Profile in Sidebar */}
+        <div className="mt-auto border-t border-slate-800 pt-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-800 border border-emerald-500/50">
+              <img 
+                src={profile.avatar} 
+                alt="Vic" 
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'flex';
+                }}
+              />
+              <div className="hidden w-full h-full items-center justify-center bg-slate-800 text-emerald-500">
+                <User size={20} />
+              </div>
+            </div>
+            <div>
+              <div className="text-sm font-bold text-white">{profile.name}</div>
+              <div className="text-[10px] text-emerald-400 font-mono">戰略執行中</div>
+            </div>
+          </div>
+          <div className="p-3 bg-slate-800/50 rounded-xl border border-slate-700">
+            <div className="flex items-center gap-2 mb-2">
+              <BrainCircuit size={16} className="text-emerald-400" />
+              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">AI 戰略官</span>
+            </div>
+            <p className="text-[11px] text-slate-300 leading-relaxed italic">"Vic, 偵測到今日鈉含量偏高，建議增加黑豆水。"</p>
+          </div>
+        </div>
+      </nav>
+
+      <main className="max-w-5xl mx-auto p-4 md:p-8">
+        <header className="flex justify-between items-center mb-8">
+          <div className="flex items-center gap-4">
+             <div className="w-12 h-12 rounded-2xl overflow-hidden bg-slate-800 border-2 border-emerald-500 md:hidden">
+                <img 
+                  src={profile.avatar} 
+                  alt="Vic" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+                />
+                <div className="hidden w-full h-full items-center justify-center bg-slate-800 text-emerald-500">
+                  <User size={24} />
+                </div>
+             </div>
+             <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">維博戰略監控</h2>
+                <div className="flex items-center gap-2 text-slate-400">
+                  <Calendar size={14} />
+                  <input 
+                    type="date" 
+                    value={selectedDate} 
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    className="bg-transparent border-none focus:ring-0 text-sm font-bold cursor-pointer text-emerald-400"
+                  />
+                </div>
+             </div>
+          </div>
+          <div className="text-right">
+            <div className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">能量修復值</div>
+            <div className="text-xl md:text-2xl font-mono font-bold text-emerald-400">{profile.energyLevel}%</div>
+          </div>
+        </header>
+
+        {activeTab === TABS.DASHBOARD && (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <StatCard title="骨骼肌重量" value={`${profile.smm} kg`} trend="+2.1kg" color="emerald" />
+              <StatCard title="體脂肪率" value={`${profile.bfm} %`} trend="-4.5%" color="orange" />
+              <StatCard title="基礎代謝" value={`${profile.bmr} kcal`} trend="穩定" color="blue" />
+            </div>
+
+            <section className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-white">
+                <Activity className="text-emerald-400" /> 今日攝取總覽 ({selectedDate})
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div className="bg-slate-800/50 p-4 rounded-2xl">
+                  <div className="text-[10px] text-slate-500 mb-1 uppercase tracking-wider">總熱量</div>
+                  <div className="text-xl font-bold font-mono">{getLogsForDate(selectedDate).reduce((acc, curr) => acc + (Number(curr.kcal) || 0), 0)} <span className="text-xs text-slate-600">kcal</span></div>
+                </div>
+                <div className="bg-slate-800/50 p-4 rounded-2xl">
+                  <div className="text-[10px] text-slate-500 mb-1 uppercase tracking-wider">蛋白質</div>
+                  <div className="text-xl font-bold font-mono">{getLogsForDate(selectedDate).reduce((acc, curr) => acc + (Number(curr.protein) || 0), 0)} <span className="text-xs text-slate-600">g</span></div>
+                </div>
+                <div className="bg-slate-800/50 p-4 rounded-2xl">
+                  <div className="text-[10px] text-slate-500 mb-1 uppercase tracking-wider">總鈉量</div>
+                  <div className="text-xl font-bold font-mono">{getLogsForDate(selectedDate).reduce((acc, curr) => acc + (Number(curr.sodium) || 0), 0)} <span className="text-xs text-slate-600">mg</span></div>
+                </div>
+                <div className="bg-slate-800/50 p-4 rounded-2xl border border-emerald-500/20">
+                  <div className="text-[10px] text-emerald-500/70 mb-1 uppercase tracking-wider">餐點數</div>
+                  <div className="text-xl font-bold font-mono">{getLogsForDate(selectedDate).length}</div>
+                </div>
+              </div>
+            </section>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <button onClick={analyzeStatus} className="flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-4 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 active:scale-[0.98]">
+                {isAnalyzing ? "戰略官運算中..." : <><BrainCircuit size={20} /> 一鍵 AI 戰略分析建議</>}
+              </button>
+              <button onClick={() => setIsAddMealOpen(true)} className="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 rounded-2xl border border-slate-700 transition-all active:scale-[0.98]">
+                <Plus size={20} /> 手動新增餐點紀錄
+              </button>
+            </div>
+
+            {aiAnalysis && (
+              <div className="bg-slate-800 border border-emerald-500/30 p-6 rounded-2xl animate-in fade-in slide-in-from-bottom-4">
+                <div className="flex items-center gap-2 mb-4 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+                  <Activity size={16} /> AI 深度策略回饋報告
+                </div>
+                <div className="whitespace-pre-wrap text-slate-200 text-sm leading-relaxed font-light">{aiAnalysis}</div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === TABS.MEALS && (
+          <div className="space-y-6">
+            <div className="flex justify-between items-center">
+              <h3 className="text-2xl font-bold text-white">餐點紀錄 - {selectedDate}</h3>
+              <button onClick={() => setIsAddMealOpen(true)} className="p-3 bg-emerald-500 text-slate-950 rounded-full shadow-lg hover:rotate-90 transition-all"><Plus size={24}/></button>
+            </div>
+
+            <div className="space-y-4">
+              {MEAL_TYPES.map(type => {
+                const mealsOfType = getLogsForDate(selectedDate).filter(l => l.type === type);
+                return (
+                  <div key={type} className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+                    <div className="bg-slate-800/50 px-4 py-2 border-b border-slate-800 flex justify-between items-center">
+                      <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">{type}</span>
+                      <span className="text-[10px] text-slate-500">{mealsOfType.length} 項內容</span>
+                    </div>
+                    <div className="p-4 space-y-4">
+                      {mealsOfType.length === 0 ? (
+                        <div className="text-xs text-slate-600 italic py-2">本日無該時段紀錄</div>
+                      ) : (
+                        mealsOfType.map((log, idx) => (
+                          <div key={idx} className="flex justify-between items-center group">
+                            <div className="flex items-center gap-4">
+                               <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-xl shadow-inner group-hover:bg-slate-700 transition-colors">
+                                  🍽️
+                               </div>
+                               <div>
+                                  <div className="font-bold text-sm text-slate-100">{log.name}</div>
+                                  <div className="text-[10px] text-slate-500 flex gap-2">
+                                     <span>蛋白: <b className="text-slate-300">{log.protein}g</b></span>
+                                     <span className="opacity-30">|</span>
+                                     <span>鈉量: <b className="text-slate-300">{log.sodium}mg</b></span>
+                                  </div>
+                               </div>
+                            </div>
+                            <div className="text-emerald-400 font-mono font-bold text-sm">+{log.kcal} <span className="text-[10px] opacity-50">kcal</span></div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {activeTab === TABS.SUPPLEMENTS && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {supps.map(s => (
+              <div key={s.id} className="bg-slate-900 border border-slate-800 p-5 rounded-3xl group hover:border-emerald-500/30 transition-all shadow-md">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex items-center gap-4">
+                    <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all">{s.icon}</span>
+                    <div>
+                      <h4 className="font-bold text-lg text-white">{s.name}</h4>
+                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${s.type === '睡前' ? 'bg-indigo-500/20 text-indigo-400' : 'bg-orange-500/20 text-orange-400'}`}>
+                        {s.type}吃
+                      </span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">庫存剩餘</div>
+                    <div className={`text-2xl font-mono font-bold ${s.current < 10 ? 'text-red-400 animate-pulse' : 'text-emerald-400'}`}>
+                      {s.current} <span className="text-xs text-slate-600">顆</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-full bg-slate-800 h-1 rounded-full mb-4 overflow-hidden">
+                   <div className={`h-full transition-all duration-500 ${s.current < 10 ? 'bg-red-500' : 'bg-emerald-500'}`} style={{ width: `${(s.current/s.total)*100}%` }}></div>
+                </div>
+                <button 
+                  onClick={() => updateSuppInventory(s.id, true)}
+                  className="w-full py-3 bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-2 active:scale-95">
+                  <CheckCircle2 size={16} /> 標記今日已服用完成
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
+
+      {/* Add Meal Modal */}
+      {isAddMealOpen && (
+        <div className="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[100] flex items-center justify-center p-4 animate-in fade-in">
+          <div className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-blue-500"></div>
+            <div className="flex justify-between items-center mb-8">
+              <h3 className="text-2xl font-bold text-white">新增戰略紀錄</h3>
+              <button onClick={() => setIsAddMealOpen(false)} className="text-slate-500 hover:text-white transition-colors"><X /></button>
+            </div>
+            
+            <div className="space-y-6">
+              <div>
+                <label className="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest">餐點時段分類</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {MEAL_TYPES.map(t => (
+                    <button 
+                      key={t}
+                      onClick={() => setNewMeal({...newMeal, type: t})}
+                      className={`py-2 rounded-xl text-xs font-bold border transition-all ${newMeal.type === t ? 'bg-emerald-500 border-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/20' : 'bg-slate-800 border-slate-700 text-slate-400'}`}>
+                      {t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest">餐點內容名稱</label>
+                <input 
+                  type="text" 
+                  value={newMeal.name}
+                  onChange={(e) => setNewMeal({...newMeal, name: e.target.value})}
+                  placeholder="例如: 特濃美式 + 雞肉三明治"
+                  className="w-full bg-slate-800 border-slate-700 rounded-2xl px-5 py-3 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all"
+                />
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest">熱量(kcal)</label>
+                  <input type="number" value={newMeal.kcal} onChange={(e) => setNewMeal({...newMeal, kcal: e.target.value})} className="w-full bg-slate-800 border-slate-700 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-emerald-500 focus:outline-none" />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest">蛋白(g)</label>
+                  <input type="number" value={newMeal.protein} onChange={(e) => setNewMeal({...newMeal, protein: e.target.value})} className="w-full bg-slate-800 border-slate-700 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-emerald-500 focus:outline-none" />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-black text-slate-500 mb-2 uppercase tracking-widest">鈉(mg)</label>
+                  <input type="number" value={newMeal.sodium} onChange={(e) => setNewMeal({...newMeal, sodium: e.target.value})} className="w-full bg-slate-800 border-slate-700 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-emerald-500 focus:outline-none" />
+                </div>
+              </div>
+
+              <button 
+                onClick={handleAddMeal}
+                disabled={!newMeal.name}
+                className="w-full bg-emerald-500 disabled:bg-slate-700 disabled:text-slate-500 text-slate-950 font-black py-4 rounded-2xl mt-4 hover:bg-emerald-400 transition-all shadow-lg active:scale-95">
+                存入當日戰略紀錄庫
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Navigation - Mobile */}
+      <nav className="fixed bottom-0 left-0 w-full bg-slate-900/95 backdrop-blur-2xl border-t border-slate-800 flex justify-around p-4 md:hidden z-50">
+        <MobileNavItem active={activeTab === TABS.DASHBOARD} onClick={() => setActiveTab(TABS.DASHBOARD)} icon={<LayoutDashboard />} />
+        <MobileNavItem active={activeTab === TABS.MEALS} onClick={() => setActiveTab(TABS.MEALS)} icon={<UtensilsCrossed />} />
+        <MobileNavItem active={activeTab === TABS.SUPPLEMENTS} onClick={() => setActiveTab(TABS.SUPPLEMENTS)} icon={<Pill />} />
+        <MobileNavItem active={activeTab === TABS.STATS} onClick={() => setActiveTab(TABS.STATS)} icon={<BarChart3 />} />
+      </nav>
+    </div>
+  );
+}
+
+function NavItem({ active, onClick, icon, label }) {
+  return (
+    <button onClick={onClick} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${active ? 'bg-emerald-500 text-slate-950 font-bold shadow-lg shadow-emerald-500/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
+      {React.cloneElement(icon, { size: 20 })}
+      <span className="text-sm">{label}</span>
+    </button>
+  );
+}
+
+function MobileNavItem({ active, onClick, icon }) {
+  return (
+    <button onClick={onClick} className={`p-3 rounded-2xl transition-all ${active ? 'text-emerald-400 bg-emerald-400/10' : 'text-slate-500 hover:bg-slate-800'}`}>
+      {React.cloneElement(icon, { size: 24 })}
+    </button>
+  );
+}
+
+function StatCard({ title, value, trend, color }) {
+  const colorMap = { emerald: 'text-emerald-400', orange: 'text-orange-400', blue: 'text-blue-400' };
+  const bgMap = { emerald: 'bg-emerald-500/10', orange: 'bg-orange-500/10', blue: 'bg-blue-500/10' };
+  
+  return (
+    <div className="bg-slate-900 border border-slate-800 p-6 rounded-[2rem] hover:border-slate-700 transition-all group shadow-sm">
+      <div className="text-[10px] text-slate-500 uppercase tracking-widest font-black mb-2">{title}</div>
+      <div className="text-3xl font-mono font-bold mb-3 text-white group-hover:scale-105 transition-transform origin-left">{value}</div>
+      <div className={`text-[10px] font-black px-3 py-1 rounded-full inline-block ${bgMap[color]} ${colorMap[color]}`}>
+        {trend}
+      </div>
+    </div>
+  );
+}
