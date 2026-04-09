@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 安全優化 1: 強制將所有的 HTTP 請求升級為 HTTPS (免費解決混合內容問題) -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <!-- 安全優化 2: 防止 MIME 類型嗅探 -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <!-- 安全優化 3: 隱私與來源保護 -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
     <title>LEMATEC Tools LAB | Professional B2B Solutions & Engineering Hub</title>
+    
+    <!-- SEO & GEO: 定義唯一標準網址，防止被判定為釣魚或重複內容 -->
+    <link rel="canonical" href="https://www.lematec-tools.com/">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -51,8 +62,8 @@
             
             <div class="hidden md:flex space-x-8 items-center h-full">
                 <div class="relative h-full flex items-center nav-link cursor-pointer group">
-                    <span class="text-sm font-medium group-hover:text-blue-400 transition-colors">Technical Guides</span>
-                    <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
+                    <span class="text-sm font-medium group-hover:text-blue-400 transition-colors text-slate-300">Technical Guides</span>
+                    <i data-lucide="chevron-down" class="w-4 h-4 ml-1 text-slate-300"></i>
                     <div class="dropdown-menu absolute top-16 left-0 bg-white text-slate-800 shadow-2xl rounded-xl py-2 w-56 border border-gray-100">
                         <a href="https://www.lematec-tools.com/sandblasting-media-sandblast-reference" rel="noopener noreferrer" target="_blank" class="block px-4 py-3 hover:bg-blue-50 text-sm font-medium border-b border-gray-50 flex items-center">
                             <i data-lucide="sparkles" class="w-4 h-4 mr-2 text-blue-500"></i> Sandblasting Guide
@@ -65,8 +76,8 @@
                         </a>
                     </div>
                 </div>
-                <a href="#b2b-solutions" class="text-sm font-medium hover:text-blue-400 transition-colors">B2B Solutions</a>
-                <a href="#brand-story" class="text-sm font-medium hover:text-blue-400 transition-colors">Brand Story</a>
+                <a href="#b2b-solutions" class="text-sm font-medium text-slate-300 hover:text-blue-400 transition-colors">B2B Solutions</a>
+                <a href="#brand-story" class="text-sm font-medium text-slate-300 hover:text-blue-400 transition-colors">Brand Story</a>
                 <a href="https://www.lematec-tools.com/contact-us" rel="noopener noreferrer" class="bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded-lg text-sm font-bold transition shadow-md">Get a Quote</a>
             </div>
 
@@ -117,12 +128,12 @@
         </div>
     </section>
 
-    <!-- Section 2: Trust (Brand Story) - Replaced broken image with SVG Iconography -->
+    <!-- Section 2: Trust (Brand Story) -->
     <section id="brand-story" class="bg-slate-50 py-24 px-6 overflow-hidden">
         <div class="max-w-5xl mx-auto">
             <div class="flex flex-col md:flex-row gap-16 items-center">
                 <div class="md:w-1/2 relative flex justify-center">
-                    <!-- High-end SVG Placeholder replacing the broken image -->
+                    <!-- SVG Iconography to ensure 100% display safety without broken image links -->
                     <div class="w-full aspect-square bg-slate-900 rounded-3xl shadow-2xl border-8 border-white flex flex-col items-center justify-center p-12 text-center overflow-hidden">
                         <div class="brand-badge p-4 rounded-full mb-6">
                             <i data-lucide="award" class="w-16 h-16 text-white"></i>
@@ -193,7 +204,8 @@
                 
                 <div class="bg-slate-800 p-1 rounded-3xl shadow-3xl overflow-hidden border border-slate-700">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/XHq0u_9dnaM" frameborder="0" allowfullscreen></iframe>
+                        <!-- Standardized YouTube Embed with Security Headers -->
+                        <iframe src="https://www.youtube.com/embed/XHq0u_9dnaM" title="Lematec B2B Excellence" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                     </div>
                     <div class="p-8 text-center">
                         <p class="italic text-slate-400 text-sm mb-6">"Innovation isn't just about the tool; it's about the evolution of the craft."</p>
@@ -223,7 +235,7 @@
 
     <!-- Modals (Calculators) -->
     <div id="cfmModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content text-slate-800">
             <button onclick="closeModal('cfmModal')" class="absolute top-4 right-4"><i data-lucide="x"></i></button>
             <h3 class="text-xl font-bold mb-4">CFM to SCFM Tool</h3>
             <div class="space-y-4">
