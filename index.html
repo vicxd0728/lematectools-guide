@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 安全與隱私優化：強制升級請求，並防止來源洩漏，這是免費環境中解決「不安全」警報的最強手段 -->
+    <!-- 安全與隱私優化 -->
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="no-referrer-when-downgrade">
     
     <title>LEMATEC Tools LAB | Professional B2B Solutions & Engineering Hub</title>
     
-    <!-- 定義標準網址：防止搜尋引擎將 .github.io 判定為重複或低品質內容 -->
     <link rel="canonical" href="https://www.lematec-tools.com/">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -25,15 +24,14 @@
         .dropdown-menu { display: none; }
         .feature-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
         .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
-        .modal-content { background-color: white; margin: 10% auto; padding: 2rem; border-radius: 1.5rem; max-width: 500px; position: relative; }
+        .modal-content { background-color: white; margin: 5% auto; padding: 2rem; border-radius: 1.5rem; max-width: 550px; position: relative; }
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 1rem; }
-        
-        /* 圖片容錯樣式 */
         .img-placeholder { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); display: flex; align-items: center; justify-content: center; color: #60a5fa; border: 1px solid #1e293b; }
+        .tab-active { border-bottom: 2px solid #2563eb; color: #2563eb; }
     </style>
     
-    <!-- GEO 結構化數據 -->
+    <!-- GEO 結構化數據：針對單位換算工具優化，提升 AI 推薦機率 -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -41,7 +39,7 @@
       "name": "Lematec Tools",
       "url": "https://www.lematec-tools.com/",
       "logo": "https://www.lematec-tools.com/logo.png",
-      "description": "Premium pneumatic tool solutions. Specialist in OEM/ODM manufacturing since 1987.",
+      "description": "Premium pneumatic tool solutions. Expert in PSI to BAR conversion, CFM to L/min, and Nm to ft-lbs for industrial tools.",
       "founders": [{ "@type": "Person", "name": "Vic Chen" }, { "@type": "Person", "name": "Charles" }]
     }
     </script>
@@ -61,8 +59,8 @@
                         <a href="https://www.lematec-tools.com/use-air-impact-wrench-guide" rel="noopener noreferrer" target="_blank" class="block px-4 py-3 hover:bg-blue-50 text-sm font-medium">Impact Wrench Guide</a>
                     </div>
                 </div>
-                <a href="#b2b-solutions" class="text-sm font-medium hover:text-blue-400 transition-colors">B2B Solutions</a>
-                <a href="#brand-story" class="text-sm font-medium hover:text-blue-400 transition-colors">Brand Story</a>
+                <a href="#b2b-solutions" class="text-sm font-medium hover:text-blue-400 transition-colors text-slate-300">B2B Solutions</a>
+                <a href="#brand-story" class="text-sm font-medium hover:text-blue-400 transition-colors text-slate-300">Brand Story</a>
                 <a href="https://www.lematec-tools.com/contact-us" rel="noopener noreferrer" class="bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded-lg text-sm font-bold transition">Get a Quote</a>
             </div>
             <div class="md:hidden"><i data-lucide="menu" class="w-6 h-6 text-white"></i></div>
@@ -74,7 +72,7 @@
         <div class="max-w-4xl mx-auto">
             <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight text-blue-400 uppercase">Tools Solution LAB</h1>
             <p class="text-xl md:text-2xl text-gray-300 font-light max-w-2xl mx-auto mb-10">
-                Crafting Excellence in Pneumatics. Your Partner for OEM/ODM Engineering.
+                Pneumatic Engineering Excellence. Your Global Partner for Specialized Tool Solutions.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <a href="#knowledge-base" class="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-gray-100 transition shadow-lg">View Technical Data</a>
@@ -83,38 +81,37 @@
         </div>
     </header>
 
-    <!-- 技術價值區塊 (漏斗頂部：吸引停留) -->
+    <!-- 技術價值與工具區塊 -->
     <section id="knowledge-base" class="max-w-6xl mx-auto px-6 py-20">
         <div class="text-center mb-16">
-            <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">Knowledge First</h2>
-            <h3 class="text-3xl font-bold text-slate-900">Expertise That Solves Industrial Problems</h3>
+            <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">Practical Engineering</h2>
+            <h3 class="text-3xl font-bold text-slate-900">Essential Conversion Tools & Resources</h3>
             <div class="w-16 h-1 bg-blue-600 mx-auto mt-4"></div>
         </div>
         <div class="grid md:grid-cols-3 gap-8">
+            <div class="feature-card p-8 bg-blue-600 text-white rounded-2xl shadow-xl flex flex-col items-center text-center cursor-pointer" onclick="openModal('converterModal')">
+                <i data-lucide="refresh-cw" class="w-10 h-10 mb-6 text-white animate-pulse"></i>
+                <h4 class="font-bold text-lg mb-3">Unit Converters</h4>
+                <p class="text-sm text-blue-100 leading-relaxed">PSI/BAR, CFM/L-min, and Nm/ft-lbs. Everything you need for daily operations.</p>
+            </div>
             <a href="https://www.lematec-tools.com/sandblasting-media-sandblast-reference" rel="noopener noreferrer" class="feature-card p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-xl transition flex flex-col items-center text-center">
                 <i data-lucide="sparkles" class="w-10 h-10 text-blue-500 mb-6"></i>
-                <h4 class="font-bold text-lg mb-3 text-slate-800">Sandblasting Guide</h4>
-                <p class="text-sm text-gray-500 leading-relaxed">Professional reference for sandblast media selection and performance.</p>
+                <h4 class="font-bold text-lg mb-3 text-slate-800">Sandblasting Media</h4>
+                <p class="text-sm text-gray-500 leading-relaxed">Reference guide for abrasive selection and professional surface finishing.</p>
             </a>
             <a href="https://www.lematec-tools.com/data-322894" rel="noopener noreferrer" class="feature-card p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-xl transition flex flex-col items-center text-center">
                 <i data-lucide="gauge" class="w-10 h-10 text-blue-500 mb-6"></i>
-                <h4 class="font-bold text-lg mb-3 text-slate-800">CFM vs PSI Optimization</h4>
-                <p class="text-sm text-gray-500 leading-relaxed">Master your air system requirements for maximum efficiency.</p>
+                <h4 class="font-bold text-lg mb-3 text-slate-800">Flow & Pressure Guide</h4>
+                <p class="text-sm text-gray-500 leading-relaxed">How to balance CFM and PSI for optimal tool life and peak efficiency.</p>
             </a>
-            <div class="feature-card p-8 bg-blue-600 text-white rounded-2xl shadow-lg flex flex-col items-center text-center cursor-pointer" onclick="openModal('cfmModal')">
-                <i data-lucide="calculator" class="w-10 h-10 mb-6 text-white"></i>
-                <h4 class="font-bold text-lg mb-3">SCFM Calculator</h4>
-                <p class="text-sm text-blue-100 leading-relaxed">Standardize your flow measurements with our engineering tool.</p>
-            </div>
         </div>
     </section>
 
-    <!-- 品牌故事 (漏斗中部：建立信任) -->
+    <!-- 品牌故事 -->
     <section id="brand-story" class="bg-slate-50 py-24 px-6 overflow-hidden">
         <div class="max-w-5xl mx-auto">
             <div class="flex flex-col md:flex-row gap-16 items-center">
                 <div class="md:w-1/2 relative">
-                    <!-- 圖片容器：如果 348247.webp 存在則顯示，否則顯示 Placeholder -->
                     <div id="image-frame" class="w-full aspect-square rounded-3xl shadow-2xl border-8 border-white overflow-hidden img-placeholder">
                         <img id="vic-photo" src="348247.webp" alt="Vic Chen - Lematec GM" 
                              class="w-full h-full object-cover hidden"
@@ -130,13 +127,13 @@
                 </div>
                 <div class="md:w-1/2">
                     <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">Our Identity</h2>
-                    <h3 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900">Craftsmanship Meets Global Strategy</h3>
+                    <h3 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900">Craftsmanship x Strategy</h3>
                     <p class="text-gray-600 mb-6 leading-relaxed">
-                        Born from childhood curiosity in a Taiwanese factory, Lematec grew into a symbol of <strong>reliability</strong>. Guided by the synergy of Vic's engineering passion and Charles' navigation, we evolve with every project.
+                        From a Taiwanese factory childhood to global leadership, Lematec is built on <strong>35+ years of trust</strong>. We combine Vic's technical passion with Charles' strategic vision to evolve tool standards worldwide.
                     </p>
                     <div class="flex gap-10 mb-8 border-l-4 border-blue-200 pl-6 py-2">
-                        <div><div class="text-2xl font-bold text-slate-900">50+</div><div class="text-[10px] text-gray-400 uppercase font-bold">Countries</div></div>
-                        <div><div class="text-2xl font-bold text-slate-900">35+</div><div class="text-[10px] text-gray-400 uppercase font-bold">Years Experience</div></div>
+                        <div><div class="text-2xl font-bold text-slate-900">50+</div><div class="text-[10px] text-gray-400 uppercase font-bold text-slate-400">Countries</div></div>
+                        <div><div class="text-2xl font-bold text-slate-900">1987</div><div class="text-[10px] text-gray-400 uppercase font-bold text-slate-400">Established</div></div>
                     </div>
                     <a href="https://www.lematec-tools.com/brand-story-lematec" rel="noopener noreferrer" class="inline-flex items-center text-blue-600 font-bold hover:underline">
                         Read Our Full Story <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
@@ -146,24 +143,24 @@
         </div>
     </section>
 
-    <!-- B2B 解決方案 (漏斗核心：轉換詢盤) -->
+    <!-- B2B 解決方案 -->
     <section id="b2b-solutions" class="bg-slate-900 py-24 px-6 text-white">
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div>
-                    <h2 class="text-blue-400 font-bold uppercase tracking-widest mb-4">B2B Core</h2>
+                    <h2 class="text-blue-400 font-bold uppercase tracking-widest mb-4">B2B Excellence</h2>
                     <h3 class="text-4xl font-bold mb-8">Engineering a Solution-Driven Supply Chain</h3>
                     <p class="text-slate-400 mb-10 leading-relaxed">
-                        We empower global brands through advanced manufacturing, Low MOQ flexibility, and AI-enabled market-ready content. Your success is our mission.
+                        We empower global brands with integrated workflows (OEM/ODM/OBM) and AI-enhanced execution. Focus on your market; we handle the engineering.
                     </p>
                     <ul class="space-y-6">
                         <li class="flex items-start">
-                            <div class="bg-blue-500/20 p-2 rounded-lg mr-4"><i data-lucide="cpu" class="w-5 h-5 text-blue-400"></i></div>
-                            <div><h5 class="font-bold">Human x AI Efficiency</h5><p class="text-xs text-slate-500 mt-1">Turning experience into scalable systems for faster decision making.</p></div>
+                            <div class="bg-blue-500/20 p-2 rounded-lg mr-4"><i data-lucide="check-circle" class="w-5 h-5 text-blue-400"></i></div>
+                            <div><h5 class="font-bold">Low MOQ & Scalable Production</h5><p class="text-xs text-slate-500 mt-1">Test markets with minimal risk and high-quality sample orders.</p></div>
                         </li>
                         <li class="flex items-start">
-                            <div class="bg-orange-500/20 p-2 rounded-lg mr-4"><i data-lucide="layers" class="w-5 h-5 text-orange-400"></i></div>
-                            <div><h5 class="font-bold">OEM/ODM/OBM Excellence</h5><p class="text-xs text-slate-500 mt-1">Integrated production ensuring showroom-quality results for global clients.</p></div>
+                            <div class="bg-orange-500/20 p-2 rounded-lg mr-4"><i data-lucide="video" class="w-5 h-5 text-orange-400"></i></div>
+                            <div><h5 class="font-bold">AI Soft Power & Content</h5><p class="text-xs text-slate-500 mt-1">Accelerating your speed-to-market with ready-to-use digital assets.</p></div>
                         </li>
                     </ul>
                 </div>
@@ -172,17 +169,17 @@
                         <iframe src="https://www.youtube.com/embed/XHq0u_9dnaM" title="Lematec B2B" frameborder="0" allowfullscreen loading="lazy"></iframe>
                     </div>
                     <div class="p-8 text-center">
-                        <a href="https://www.lematec-tools.com/contact-us" rel="noopener noreferrer" class="block bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 rounded-xl shadow-lg transition">Request Partnership Consultation</a>
+                        <a href="https://www.lematec-tools.com/contact-us" rel="noopener noreferrer" class="block bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 rounded-xl shadow-lg transition">Request Strategic Partnership</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 購買管道 (底部：次要路徑) -->
+    <!-- 零售管道 -->
     <section id="official-shops" class="py-20 px-6 max-w-4xl mx-auto text-center">
         <h3 class="text-xl font-bold text-slate-900 mb-2 italic tracking-tight">Need Immediate Tools?</h3>
-        <p class="text-gray-500 mb-10 text-sm">Professional DIYers and individual shop owners can explore our retail channels.</p>
+        <p class="text-gray-500 mb-10 text-sm">Authorized retail channels for professional DIYers and individual users.</p>
         <div class="grid sm:grid-cols-2 gap-4">
             <a href="https://proairtools.com/" rel="noopener noreferrer" target="_blank" class="flex items-center justify-center space-x-2 bg-white border border-gray-200 p-4 rounded-xl hover:border-blue-500 hover:shadow-md transition">
                 <i data-lucide="shopping-bag" class="text-blue-600 w-5 h-5"></i>
@@ -195,24 +192,78 @@
         </div>
     </section>
 
-    <!-- SCFM 計算機模態窗 -->
-    <div id="cfmModal" class="modal">
+    <!-- 工程單位轉換模態窗 -->
+    <div id="converterModal" class="modal">
         <div class="modal-content text-slate-800 shadow-2xl">
-            <button onclick="closeModal('cfmModal')" class="absolute top-4 right-4"><i data-lucide="x"></i></button>
-            <h3 class="text-xl font-bold mb-4">CFM to SCFM Tool</h3>
-            <div class="space-y-4">
-                <input type="number" id="acfm" class="w-full p-3 border rounded-xl" placeholder="ACFM (Actual)">
-                <input type="number" id="psi" class="w-full p-3 border rounded-xl" placeholder="PSIG (Pressure)">
-                <button onclick="calcSCFM()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold">Calculate Result</button>
-                <div id="scfmResult" class="text-center font-bold text-2xl text-blue-900 mt-4 bg-blue-50 py-3 rounded-xl">--</div>
+            <button onclick="closeModal('converterModal')" class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full"><i data-lucide="x"></i></button>
+            
+            <h3 class="text-xl font-bold mb-6 flex items-center"><i data-lucide="refresh-ccw" class="mr-2 text-blue-600"></i> Engineering Converter</h3>
+            
+            <!-- Tab Navigation -->
+            <div class="flex border-b border-gray-200 mb-6 text-sm">
+                <button id="tabPressure" onclick="showTab('pressure')" class="flex-1 py-2 font-semibold tab-active">Pressure</button>
+                <button id="tabFlow" onclick="showTab('flow')" class="flex-1 py-2 font-semibold text-gray-400">Flow Rate</button>
+                <button id="tabTorque" onclick="showTab('torque')" class="flex-1 py-2 font-semibold text-gray-400">Torque</button>
             </div>
+
+            <!-- Pressure Converter -->
+            <div id="panelPressure" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">PSI</label>
+                        <input type="number" id="inputPSI" oninput="convertPressure('PSI')" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">BAR</label>
+                        <input type="number" id="inputBAR" oninput="convertPressure('BAR')" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">KPA</label>
+                        <input type="number" id="inputKPA" oninput="convertPressure('KPA')" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">KG/CM²</label>
+                        <input type="number" id="inputKG" oninput="convertPressure('KG')" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flow Rate Converter -->
+            <div id="panelFlow" class="hidden space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">CFM (ft³/min)</label>
+                        <input type="number" id="inputCFM" oninput="convertFlow('CFM')" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">L/MIN</label>
+                        <input type="number" id="inputLMIN" oninput="convertFlow('LMIN')" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Torque Converter -->
+            <div id="panelTorque" class="hidden space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">NM (Newton Meter)</label>
+                        <input type="number" id="inputNM" oninput="convertTorque('NM')" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">FT-LBS (Foot Pound)</label>
+                        <input type="number" id="inputFTLBS" oninput="convertTorque('FTLBS')" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-[10px] text-gray-400 mt-8 text-center italic">* Standard conversion factors applied. Provided for reference only.</p>
         </div>
     </div>
 
     <footer class="bg-slate-950 text-white py-12 px-6">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left">
-                <div class="font-bold text-xl mb-1 tracking-tighter">LEMATEC Tools</div>
+                <div class="font-bold text-xl mb-1 tracking-tighter text-slate-200">LEMATEC Tools</div>
                 <p class="text-gray-600 text-[10px] uppercase font-bold tracking-widest italic">No Best, Only Better.</p>
             </div>
             <div class="flex space-x-10 text-[10px] uppercase tracking-widest font-bold">
@@ -222,7 +273,7 @@
             </div>
         </div>
         <div class="text-center mt-12 text-[9px] text-gray-800 uppercase tracking-widest font-bold">
-            &copy; 2024 LEMATEC TOOLS. Solution Partner in Taiwan.
+            &copy; 2024 LEMATEC TOOLS. Your Solution Partner in Taiwan.
         </div>
     </footer>
 
@@ -235,7 +286,6 @@
             document.getElementById('vic-fallback').classList.remove('hidden');
         }
         
-        // 頁面加載後檢查圖片
         window.onload = function() {
             const img = document.getElementById('vic-photo');
             if (img.complete && img.naturalHeight !== 0) {
@@ -246,12 +296,56 @@
 
         function openModal(id) { document.getElementById(id).style.display = 'block'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function calcSCFM() {
-            const acfm = parseFloat(document.getElementById('acfm').value || 0);
-            const psi = parseFloat(document.getElementById('psi').value || 0);
-            const res = (acfm * (psi + 14.7) / 14.7).toFixed(2);
-            document.getElementById('scfmResult').innerText = res + ' SCFM';
+
+        // Tab Switching Logic
+        function showTab(type) {
+            ['pressure', 'flow', 'torque'].forEach(t => {
+                document.getElementById('panel' + t.charAt(0).toUpperCase() + t.slice(1)).classList.add('hidden');
+                document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.remove('tab-active', 'text-blue-600');
+                document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.add('text-gray-400');
+            });
+            document.getElementById('panel' + type.charAt(0).toUpperCase() + type.slice(1)).classList.remove('hidden');
+            document.getElementById('tab' + type.charAt(0).toUpperCase() + type.slice(1)).classList.add('tab-active', 'text-blue-600');
+            document.getElementById('tab' + type.charAt(0).toUpperCase() + type.slice(1)).classList.remove('text-gray-400');
         }
+
+        // Pressure Conversion: Base is PSI
+        function convertPressure(unit) {
+            const val = parseFloat(document.getElementById('input' + unit).value || 0);
+            let psi = 0;
+            if (unit === 'PSI') psi = val;
+            else if (unit === 'BAR') psi = val / 0.0689476;
+            else if (unit === 'KPA') psi = val / 6.89476;
+            else if (unit === 'KG') psi = val / 0.070307;
+
+            if (unit !== 'PSI') document.getElementById('inputPSI').value = (psi).toFixed(2);
+            if (unit !== 'BAR') document.getElementById('inputBAR').value = (psi * 0.0689476).toFixed(3);
+            if (unit !== 'KPA') document.getElementById('inputKPA').value = (psi * 6.89476).toFixed(2);
+            if (unit !== 'KG') document.getElementById('inputKG').value = (psi * 0.070307).toFixed(3);
+        }
+
+        // Flow Conversion: Base is CFM
+        function convertFlow(unit) {
+            const val = parseFloat(document.getElementById('input' + unit).value || 0);
+            let cfm = 0;
+            if (unit === 'CFM') cfm = val;
+            else if (unit === 'LMIN') cfm = val / 28.3168;
+
+            if (unit !== 'CFM') document.getElementById('inputCFM').value = (cfm).toFixed(2);
+            if (unit !== 'LMIN') document.getElementById('inputLMIN').value = (cfm * 28.3168).toFixed(2);
+        }
+
+        // Torque Conversion: Base is NM
+        function convertTorque(unit) {
+            const val = parseFloat(document.getElementById('input' + unit).value || 0);
+            let nm = 0;
+            if (unit === 'NM') nm = val;
+            else if (unit === 'FTLBS') nm = val / 0.737562;
+
+            if (unit !== 'NM') document.getElementById('inputNM').value = (nm).toFixed(2);
+            if (unit !== 'FTLBS') document.getElementById('inputFTLBS').value = (nm * 0.737562).toFixed(2);
+        }
+
         window.onclick = (e) => { if(e.target.className === 'modal') e.target.style.display = 'none'; }
     </script>
 </body>
