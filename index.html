@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEMATEC Tools LAB | Professional B2B Solutions & Engineering Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+        .nav-link:hover .dropdown-menu { display: block; }
+        .dropdown-menu { display: none; }
+        .feature-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
+        .modal-content { background-color: white; margin: 10% auto; padding: 2rem; border-radius: 1.5rem; max-width: 500px; position: relative; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 1rem; }
+    </style>
+    
+    <!-- GEO Structured Data: Enhanced for B2B -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Lematec Tools",
+      "url": "https://www.lematec-tools.com/",
+      "logo": "https://www.lematec-tools.com/logo.png",
+      "description": "Premium pneumatic tool solutions. Specialist in OEM/ODM manufacturing and supply chain stability for global brands.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "areaServed": "Worldwide",
+        "availableLanguage": ["English", "Chinese"]
+      }
+    }
+    </script>
+</head>
+<body class="bg-white text-slate-800 pt-16">
+
+    <!-- Sticky Navigation -->
+    <nav class="fixed top-0 left-0 w-full bg-slate-900/95 backdrop-blur shadow-lg z-50 text-white">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="font-bold text-xl tracking-tighter text-blue-400">LEMATEC LAB</a>
+            
+            <div class="hidden md:flex space-x-8 items-center h-full">
+                <div class="relative h-full flex items-center nav-link cursor-pointer group">
+                    <span class="text-sm font-medium group-hover:text-blue-400 transition-colors">Technical Guides</span>
+                    <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
+                    <div class="dropdown-menu absolute top-16 left-0 bg-white text-slate-800 shadow-2xl rounded-xl py-2 w-56 border border-gray-100">
+                        <a href="https://www.lematec-tools.com/sandblasting-media-sandblast-reference" target="_blank" class="block px-4 py-3 hover:bg-blue-50 text-sm font-medium border-b border-gray-50 flex items-center">
+                            <i data-lucide="sparkles" class="w-4 h-4 mr-2 text-blue-500"></i> Sandblasting Guide
+                        </a>
+                        <a href="https://www.lematec-tools.com/use-air-impact-wrench-guide" target="_blank" class="block px-4 py-3 hover:bg-blue-50 text-sm font-medium border-b border-gray-50 flex items-center">
+                            <i data-lucide="wrench" class="w-4 h-4 mr-2 text-blue-500"></i> Impact Wrench Guide
+                        </a>
+                        <a href="https://www.lematec-tools.com/data-322894" target="_blank" class="block px-4 py-3 hover:bg-blue-50 text-sm font-medium flex items-center">
+                            <i data-lucide="gauge" class="w-4 h-4 mr-2 text-blue-500"></i> CFM vs PSI Guide
+                        </a>
+                    </div>
+                </div>
+                <a href="#b2b-solutions" class="text-sm font-medium hover:text-blue-400 transition-colors">B2B Solutions</a>
+                <a href="#brand-story" class="text-sm font-medium hover:text-blue-400 transition-colors">Brand Story</a>
+                <a href="https://www.lematec-tools.com/contact-us" class="bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded-lg text-sm font-bold transition shadow-md">Get a Quote</a>
+            </div>
+
+            <div class="md:hidden">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section: Professional Authority -->
+    <header class="hero-gradient text-white py-24 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight text-blue-400 uppercase">LEMATEC Tools LAB</h1>
+            <p class="text-xl md:text-2xl text-gray-300 font-light max-w-2xl mx-auto mb-10">
+                Accelerating Brand Success with Professional Pneumatic Knowledge & Stable Supply Solutions.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#knowledge-base" class="px-8 py-4 bg-white text-slate-900 rounded-xl font-bold hover:bg-gray-100 transition shadow-lg">Explore Technical Resources</a>
+                <a href="https://www.lematec-tools.com/data-370899" class="px-8 py-4 border border-blue-400/50 text-blue-300 rounded-xl font-bold hover:bg-blue-400/10 transition">B2B Buyer's Guide</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section 1: Value-First Knowledge Base -->
+    <section id="knowledge-base" class="max-w-6xl mx-auto px-6 py-20">
+        <div class="text-center mb-16">
+            <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">Technical Authority</h2>
+            <h3 class="text-3xl font-bold text-slate-900">Engineering Wisdom for Your Workshop</h3>
+            <div class="w-16 h-1 bg-blue-600 mx-auto mt-4"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <a href="https://www.lematec-tools.com/sandblasting-media-sandblast-reference" class="feature-card p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-xl transition flex flex-col items-center text-center">
+                <i data-lucide="sparkles" class="w-10 h-10 text-blue-500 mb-6"></i>
+                <h4 class="font-bold text-lg mb-3">Sandblasting Reference</h4>
+                <p class="text-sm text-gray-500 leading-relaxed">Selecting the right media for surface prep. Essential for industrial coatings.</p>
+            </a>
+            <a href="https://www.lematec-tools.com/data-322894" class="feature-card p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-xl transition flex flex-col items-center text-center">
+                <i data-lucide="gauge" class="w-10 h-10 text-blue-500 mb-6"></i>
+                <h4 class="font-bold text-lg mb-3">CFM vs PSI Optimization</h4>
+                <p class="text-sm text-gray-500 leading-relaxed">Optimize your air system for longevity and tool performance.</p>
+            </a>
+            <div class="feature-card p-8 bg-blue-600 text-white rounded-2xl shadow-lg flex flex-col items-center text-center cursor-pointer" onclick="openModal('cfmModal')">
+                <i data-lucide="calculator" class="w-10 h-10 mb-6"></i>
+                <h4 class="font-bold text-lg mb-3 text-white">Engineering Calculator</h4>
+                <p class="text-sm text-blue-100 leading-relaxed">Instantly convert CFM to SCFM for standardized system planning.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Trust (Brand Story) -->
+    <section id="brand-story" class="bg-slate-50 py-24 px-6 overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+                <div class="md:w-1/2 relative">
+                    <img src="348247.webp" alt="Vic and Charles - Lematec" class="relative rounded-3xl shadow-2xl border-8 border-white z-10 w-full h-auto">
+                    <div class="absolute -bottom-6 -right-6 bg-slate-900 text-white p-6 rounded-2xl shadow-xl z-20">
+                        <div class="text-3xl font-bold text-blue-400 italic">"Better beats best."</div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h2 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">The LEMATEC Spirit</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900">Craftsmanship Meets Global Strategy</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        From a childhood in a Taiwanese factory to a global leader in pneumatic innovation, Lematec is the synergy of <strong>Vic's ingenuity</strong> and <strong>Charles' strategic navigation</strong>. We don't just build tools; we evolve solutions.
+                    </p>
+                    <div class="flex gap-10 mb-8 border-l-4 border-blue-200 pl-6 py-2">
+                        <div>
+                            <div class="text-2xl font-bold text-slate-900">50+</div>
+                            <div class="text-[10px] text-gray-400 uppercase font-bold">Countries</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-slate-900">13+</div>
+                            <div class="text-[10px] text-gray-400 uppercase font-bold">Years Experience</div>
+                        </div>
+                    </div>
+                    <a href="https://www.lematec-tools.com/brand-story-lematec" class="inline-flex items-center text-blue-600 font-bold hover:underline">
+                        Explore Our Full Journey <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: B2B Engineering & Supply Chain (THE CORE VALUE) -->
+    <section id="b2b-solutions" class="bg-slate-900 py-24 px-6 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-blue-400 font-bold uppercase tracking-widest mb-4">B2B Excellence</h2>
+                    <h3 class="text-4xl font-bold mb-8">Engineering a Solution-Driven Supply Chain</h3>
+                    <p class="text-slate-400 mb-10 leading-relaxed">
+                        We understand that brand success requires more than just a product. It requires a partner who understands product positioning, digital execution, and stable lead times.
+                    </p>
+                    <ul class="space-y-6">
+                        <li class="flex items-start">
+                            <div class="bg-blue-500/20 p-2 rounded-lg mr-4"><i data-lucide="cpu" class="w-5 h-5 text-blue-400"></i></div>
+                            <div>
+                                <h5 class="font-bold">Human Craftsmanship x AI Soft Power</h5>
+                                <p class="text-xs text-slate-500 mt-1">Turning decades of experience into scalable systems for faster market-ready content.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-orange-500/20 p-2 rounded-lg mr-4"><i data-lucide="layers" class="w-5 h-5 text-orange-400"></i></div>
+                            <div>
+                                <h5 class="font-bold">Integrated Workflow (OEM/ODM/OBM)</h5>
+                                <p class="text-xs text-slate-500 mt-1">All processes handled in-house to ensure showroom-quality results.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-green-500/20 p-2 rounded-lg mr-4"><i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i></div>
+                            <div>
+                                <h5 class="font-bold">Low MOQ & Scalability</h5>
+                                <p class="text-xs text-slate-500 mt-1">Support for market testing with minimal risk and high-quality sample orders.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-slate-800 p-1 rounded-3xl shadow-3xl overflow-hidden">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/XHq0u_9dnaM" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="p-8 text-center">
+                        <p class="italic text-slate-400 text-sm mb-6">"Innovation isn't just about the tool; it's about the evolution of the craft."</p>
+                        <a href="https://www.lematec-tools.com/contact-us" class="block bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 rounded-xl shadow-lg transition">Request Strategic Partnership</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Secondary - Retail & Online Shops (Moved Down) -->
+    <section id="official-shops" class="py-24 px-6 max-w-4xl mx-auto text-center">
+        <h3 class="text-2xl font-bold text-slate-900 mb-4 italic">Experience the Difference</h3>
+        <p class="text-gray-500 mb-12">For individual professionals and DIY enthusiasts looking for immediate tool excellence.</p>
+        
+        <div class="grid sm:grid-cols-2 gap-6">
+            <a href="https://proairtools.com/" target="_blank" class="flex items-center justify-center space-x-3 bg-white border border-gray-200 p-6 rounded-2xl hover:border-blue-500 hover:shadow-lg transition">
+                <i data-lucide="globe" class="text-blue-600 w-6 h-6"></i>
+                <span class="font-bold">Official ProAirTools Shop</span>
+            </a>
+            <a href="https://www.amazon.com/stores/LELEMATEC/page/1498BA10-77D1-4AE3-9A09-A0527CB621A8" target="_blank" class="flex items-center justify-center space-x-3 bg-white border border-gray-200 p-6 rounded-2xl hover:border-orange-500 hover:shadow-lg transition">
+                <i data-lucide="shopping-cart" class="text-orange-600 w-6 h-6"></i>
+                <span class="font-bold">LEMATEC Amazon Store</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Modals (Calculators) -->
+    <div id="cfmModal" class="modal">
+        <div class="modal-content">
+            <button onclick="closeModal('cfmModal')" class="absolute top-4 right-4"><i data-lucide="x"></i></button>
+            <h3 class="text-xl font-bold mb-4">CFM to SCFM Tool</h3>
+            <div class="space-y-4">
+                <input type="number" id="acfm" class="w-full p-3 border rounded-xl" placeholder="ACFM (Actual)">
+                <input type="number" id="psi" class="w-full p-3 border rounded-xl" placeholder="PSIG (Pressure)">
+                <button onclick="calcSCFM()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold">Calculate</button>
+                <div id="scfmResult" class="text-center font-bold text-2xl text-blue-900 mt-4">--</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-white py-12 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <div class="font-bold text-xl mb-2 tracking-tighter">LEMATEC Tools</div>
+                <p class="text-gray-600 text-xs">A Taiwan-based solution partner for global pneumatic excellence since 1987.</p>
+            </div>
+            <div class="flex space-x-10 text-xs uppercase tracking-widest font-bold">
+                <a href="https://www.linkedin.com/in/kun-wei-chen-ba03b587" class="hover:text-blue-400">LinkedIn</a>
+                <a href="https://www.youtube.com/@lematecprotools" class="hover:text-blue-400">YouTube</a>
+                <a href="https://www.lematec-tools.com/" class="hover:text-blue-400">Main Site</a>
+            </div>
+        </div>
+        <div class="text-center mt-12 text-[10px] text-gray-800 uppercase tracking-widest">
+            &copy; 2024 LEMATEC TOOLS. NO BEST, ONLY BETTER.
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        function openModal(id) { document.getElementById(id).style.display = 'block'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function calcSCFM() {
+            const acfm = parseFloat(document.getElementById('acfm').value || 0);
+            const psi = parseFloat(document.getElementById('psi').value || 0);
+            document.getElementById('scfmResult').innerText = (acfm * (psi + 14.7) / 14.7).toFixed(2) + ' SCFM';
+        }
+        window.onclick = (e) => { if(e.target.className === 'modal') e.target.style.display = 'none'; }
+    </script>
+</body>
+</html>
